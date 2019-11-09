@@ -81,3 +81,13 @@ void push_back ( Vector & v , int element )
 {
 
 }
+void destroy_vector ( Vector & v )
+{
+    v.size=0;
+    v.capacity=0;
+    delete[](v.data);
+}
+void reserve ( Vector &v , int new_capacity );
+{
+    
+}
