@@ -7,6 +7,8 @@ struct Vector {
     int capacity = 0;
     int * data = nullptr ;
 };
+//prints data to sure
+void printardata(const Vector& k);
 // Construct a Vector v with a default size 0.
 void construct_vector ( Vector & v , int size1 = 0 , int initVal = 0) ;
 // Destroy Vector v and return memory to the freestore ( heap ).
@@ -45,11 +47,36 @@ void reserve ( Vector &v , int new_capacity );
 int main()
 {
     Vector a,b,c;
-    construct_vector(a,15,56);
+    construct_vector(a,25,36);
     std::cout <<"size of vector: "<<size(a)<<"\n";
-    for (int i = 0; i < size(a); ++i) {
-        std::cout << "data is: " << *(data(a) + i) << " ";
+    std::cout <<"capacity of the vector is: "<<capacity(a)<<"\n";
+    printardata(a);
+    destroy_vector(a);
+    std::cout<<"\ndestrying vector a";
+    construct_vector(b,25);
+    std::cout<<"\ncreating new vector b";
+    printardata(b);
+    std::cout<<"\nsetting data at vector b ";
+    at(b,24)=15;
+    at(b,15)=100;
+    at(b,19)=145;
+    printardata(b);
+    construct_vector(c,10);
+    at(c ,1)=152;
+    std::cout<<"\ncreating new vector b";
+    printardata(b);
+    clear(b);
+    if (empty(b))
+    {
+        std::cout<<"\nThe arr is empty";
+    }else{
+        std::cout<<"\nNot empty dude";
     }
+    printardata(b);
+
+
+
+
     char y;
     std::cin>> y;
     return 0;
@@ -87,7 +114,42 @@ void destroy_vector ( Vector & v )
     v.capacity=0;
     delete[](v.data);
 }
-void reserve ( Vector &v , int new_capacity );
+//void reserve ( Vector &v , int new_capacity );
+//{
+//    v.capacity=new_capacity;
+//}
+void clear ( Vector & v )
 {
-    
+    v.size=0;
+    v.data= nullptr;
+
+}
+int capacity ( const Vector & v )
+{
+    return v.capacity;
+
+}
+int & at ( Vector & v , int i ) noexcept(false)
+{
+    if(i<size(v)) {
+        int &temp = v.data[i];
+        return temp;
+    }
+}
+bool empty ( const Vector & v )
+{
+    bool t =false;
+    if(data(v)== nullptr)
+    {
+        t=true;
+    }
+    return t;
+}
+void printardata(const Vector& k)
+{
+    std::cout << "\ndata is: ";
+    for (int i = 0; i < size(k); ++i) {
+        std::cout << *(data(k) + i) << " ";
+    }
+
 }
