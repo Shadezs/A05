@@ -8,6 +8,7 @@ struct Vector {
     int * data = nullptr ;
 };
 //prints data to user
+void menudisplay();
 void printardata(const Vector& k);
 // Construct a Vector v with a default size 0.
 void construct_vector ( Vector & v , int size1 = 0 , int initVal = 0) ;
@@ -43,63 +44,54 @@ void resize ( Vector & v , int newsize , int val );
 // Increase capacity of Vector v. For details see provided links
 void reserve ( Vector &v , int new_capacity );
 
+void menudisplay();
+void infomenu_display(Vector v);
+void displayWrite(Vector a,int location,int user_input);
 
 int main()
 {
+    int use1=0;
+    int loc=0;
+    int val=0;
+    int user_input=0;
     Vector a,b,c;
-    construct_vector(a,25);
-    std::cout <<"size of vector: "<<size(a)<<"\n";
-    std::cout <<"capacity of the vector is: "<<capacity(a)<<"\n";
-    printardata(a);
-    std::cout<<"filling in the vector ";
-    for (int i = 0; i <size(a) ; i++) {
-        at(a,i)=i*3;
+    menudisplay();
+    std::cin>>user_input;
+while (user_input!=7) {
+    switch (user_input) {
+        case 0:
+        case 1:
+        case 2:
+
+            std::cout << "What vector ,1A ,2B,3C";
+            std::cin >> use1;
+            std::cout << "\nwhat location: ";
+            std::cin >> loc;
+            std::cout << "\nAnd Value ";
+            std::cin >> val;
+            if (use1 == 1) {
+                at(a, loc) = val;
+            }
+            if (use1 == 2) {
+                at(b, loc) = val;
+            }
+            if (use1 == 3) {
+                at(c, loc) = val;
+            }
+            break;
+        case 3:
+        case 4:
+        case 5:
+            std::cout << "What vector ";
+            infomenu_display(a);
+            break;
     }
-    printardata(a);
-    std::cout<<"\nreseving new capacity";
-    reserve(a,35);
-    std::cout<<"the Capacity of a is: "<<capacity(a);
-    at(a,24)=152;
-    at(a,15)=1001;
-    at(a,19)=144;
-    at(a,34)=125;
-    at(a,5)=230;
-    at(a,9)=1451;
-    printardata(a);
-    resize(a,50,26);
-    std::cout<<"resizeing the vector ";
-    std::cout<<"new vector \n";
-    printardata(a);
-    std::cout<<"The the size of the vector is: "<<size(a);
-    std::cout<<"The capacity is "<<capacity(a);
-    destroy_vector(a);
-    std::cout<<"\ndestrying vector a";
-    construct_vector(b,25);
-    std::cout<<"\ncreating new vector b";
-    printardata(b);
-    std::cout<<"\nsetting data at vector b ";
-    at(b,24)=15;
-    at(b,15)=100;
-    at(b,19)=145;
-    printardata(b);
-    construct_vector(c,10);
-    at(c ,1)=152;
-    std::cout<<"\ncreating new vector b";
-    printardata(b);
-    clear(b);
-    if (empty(b))
-    {
-        std::cout<<"\nThe arr is empty";
-    }else{
-        std::cout<<"\nNot empty dude";
-    }
-    printardata(b);
-
-
-
-
+    menudisplay();
+    std::cin>>user_input;
+}
     char y;
-    std::cin>> y;
+
+
     return 0;
 }
 
@@ -235,4 +227,19 @@ void resize ( Vector & v , int newsize , int val )
 
 
 }
+void menudisplay()
+{
 
+    std::cout<<"pick a num 1,Create vectore , 2 write to vector ,3 resize vector , 4 reserve vector space ,5 display info ,6 destroy vector  \n";
+
+}
+void infomenu_display(Vector v)
+{
+    std::cout<<"The size is : "<<size(v);
+    std::cout<<"\nThe capacity is :"<<capacity(v);
+    printardata(v);
+}
+void displayWrite(Vector a,int location,int user_input)
+{
+    at(a,location)=user_input;
+}
