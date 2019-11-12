@@ -7,7 +7,7 @@ struct Vector {
     int capacity = 0;
     int * data = nullptr ;
 };
-//prints data to sure
+//prints data to user
 void printardata(const Vector& k);
 // Construct a Vector v with a default size 0.
 void construct_vector ( Vector & v , int size1 = 0 , int initVal = 0) ;
@@ -47,10 +47,31 @@ void reserve ( Vector &v , int new_capacity );
 int main()
 {
     Vector a,b,c;
-    construct_vector(a,25,36);
+    construct_vector(a,25);
     std::cout <<"size of vector: "<<size(a)<<"\n";
     std::cout <<"capacity of the vector is: "<<capacity(a)<<"\n";
     printardata(a);
+    std::cout<<"filling in the vector ";
+    for (int i = 0; i <size(a) ; i++) {
+        at(a,i)=i*3;
+    }
+    printardata(a);
+    std::cout<<"\nreseving new capacity";
+    reserve(a,35);
+    std::cout<<"the Capacity of a is: "<<capacity(a);
+    at(a,24)=152;
+    at(a,15)=1001;
+    at(a,19)=144;
+    at(a,34)=125;
+    at(a,5)=230;
+    at(a,9)=1451;
+    printardata(a);
+    resize(a,50,26);
+    std::cout<<"resizeing the vector ";
+    std::cout<<"new vector \n";
+    printardata(a);
+    std::cout<<"The the size of the vector is: "<<size(a);
+    std::cout<<"The capacity is "<<capacity(a);
     destroy_vector(a);
     std::cout<<"\ndestrying vector a";
     construct_vector(b,25);
@@ -114,19 +135,37 @@ void destroy_vector ( Vector & v )
     v.capacity=0;
     delete[](v.data);
 }
-//void reserve ( Vector &v , int new_capacity );
-//{
-//    v.capacity=new_capacity;
-//}
+
 void clear ( Vector & v )
 {
     v.size=0;
+    delete[](v.data);
     v.data= nullptr;
 
 }
+
 int capacity ( const Vector & v )
 {
     return v.capacity;
+
+}
+void reserve ( Vector &v , int new_capacity )
+{
+
+  const int oldcap=capacity(v);
+    v.capacity=new_capacity;
+    int *tempdata;
+    tempdata=new int [oldcap];
+    for (int i = 0; i < oldcap; i++) {/// this loop copies the date into the temp vector hold
+        tempdata[i]=v.data[i];
+    }
+    clear(v);
+    v.data= new int[new_capacity];
+    for(int i=0;i<oldcap;i++)
+    {
+        v.data[i]=tempdata[i];
+    }
+
 
 }
 int & at ( Vector & v , int i ) noexcept(false)
@@ -153,3 +192,47 @@ void printardata(const Vector& k)
     }
 
 }
+int & front ( const Vector & v )
+{
+
+    if(empty(v))
+    {int&t =v.data[0];
+        return t;
+    }
+
+}
+void pop_back ( Vector & v )
+{
+
+
+}
+int & back ( const Vector & v )
+{
+    int&temp =v.data[-1];
+    return temp;
+}
+void resize ( Vector & v , int newsize , int val )
+{
+
+    const int sizev =size(v);
+    int sizediff=sizev-newsize;
+    int c=size(v);
+    int *tempdata=new int[sizev];
+    for (int i = 0; i < sizev; i++) {/// this loop copies the date into the temp vector hold
+        tempdata[i]=v.data[i];
+    }
+    clear(v);
+    v.size=newsize;
+    v.capacity=newsize;
+    v.data=new int[newsize];
+    for (int j = 0; j <sizev ; j++) { /// this loop fill the vector with the old datda
+        v.data[j]=tempdata[j];
+    }
+    for (int k = 0; k <sizediff ; k++) {  /// this loop fill the vector with the new value
+        c+=k;
+        v.data[c]=0;
+    }
+
+
+}
+
