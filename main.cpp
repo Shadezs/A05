@@ -15,7 +15,9 @@ void construct_vector ( Vector & v , int size1 = 0 , int initVal = 0) ;
 // Destroy Vector v and return memory to the freestore ( heap ).
 void destroy_vector ( Vector & v );
 // ( optional ) Helper function to copy v.
+// set the data poiter to new array 
 void copy_data ( Vector & v );
+
 // Returns pointer to the first element in Vector v.
 int * data ( const Vector & v );
 // Returns the number of elements in Vector v.
@@ -131,8 +133,7 @@ void destroy_vector ( Vector & v )
 void clear ( Vector & v )
 {
     v.size=0;
-    delete[](v.data);
-    v.data= nullptr;
+ 
 
 }
 
@@ -147,16 +148,13 @@ void reserve ( Vector &v , int new_capacity )
   const int oldcap=capacity(v);
     v.capacity=new_capacity;
     int *tempdata;
-    tempdata=new int [oldcap];
+    tempdata=new int [new_capacity];
     for (int i = 0; i < oldcap; i++) {/// this loop copies the date into the temp vector hold
         tempdata[i]=v.data[i];
     }
-    clear(v);
-    v.data= new int[new_capacity];
-    for(int i=0;i<oldcap;i++)
-    {
-        v.data[i]=tempdata[i];
-    }
+    v.data=nullptr;
+    v.data=&tempdata;
+    tempdata=nullptr;
 
 
 }
@@ -215,15 +213,12 @@ void resize ( Vector & v , int newsize , int val )
     }
     clear(v);
     v.size=newsize;
-    v.capacity=newsize;
-    v.data=new int[newsize];
-    for (int j = 0; j <sizev ; j++) { /// this loop fill the vector with the old datda
-        v.data[j]=tempdata[j];
-    }
+    v.data=&tempdata;
     for (int k = 0; k <sizediff ; k++) {  /// this loop fill the vector with the new value
         c+=k;
         v.data[c]=0;
     }
+    tempdata=nullprt;
 
 
 }
