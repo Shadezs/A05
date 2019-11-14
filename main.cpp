@@ -57,40 +57,11 @@ int main()
     int val=0;
     int user_input=0;
     Vector a,b,c;
-    menudisplay();
-    std::cin>>user_input;
-while (user_input!=7) {
-    switch (user_input) {
-        case 0:
-        case 1:
-        case 2:
+    construct_vector(a);
 
-            std::cout << "What vector ,1A ,2B,3C";
-            std::cin >> use1;
-            std::cout << "\nwhat location: ";
-            std::cin >> loc;
-            std::cout << "\nAnd Value ";
-            std::cin >> val;
-            if (use1 == 1) {
-                at(a, loc) = val;
-            }
-            if (use1 == 2) {
-                at(b, loc) = val;
-            }
-            if (use1 == 3) {
-                at(c, loc) = val;
-            }
-            break;
-        case 3:
-        case 4:
-        case 5:
-            std::cout << "What vector ";
-            infomenu_display(a);
-            break;
-    }
     menudisplay();
     std::cin>>user_input;
-}
+
     char y;
 
 
@@ -121,6 +92,19 @@ void construct_vector(Vector &v, int size1, int initVal) {
 }
 void push_back ( Vector & v , int element )
 {
+    int *tempdata;
+    tempdata=new int[size(v)+1];
+    for (int i = 0; i <size(v) ; i++)
+    {
+        tempdata[i]=v.data[i];
+    }
+    tempdata[size(v)+1]=element;
+    v.size=v.size+1;
+    v.capacity=v.capacity+1;
+    delete[](v.data);
+    v.data=tempdata;
+    tempdata= nullptr;
+
 
 }
 void destroy_vector ( Vector & v )
@@ -198,7 +182,7 @@ void pop_back ( Vector & v )
 }
 int & back ( const Vector & v )
 {
-    int&temp =v.data[-1];
+    int&temp =v.data[size(v)];
     return temp;
 }
 void resize ( Vector & v , int newsize , int val )
@@ -218,7 +202,7 @@ void resize ( Vector & v , int newsize , int val )
         c+=k;
         v.data[c]=0;
     }
-    tempdata=nullprt;
+    tempdata=nullptr;
 
 
 }
