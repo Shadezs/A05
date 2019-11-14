@@ -153,7 +153,7 @@ void reserve ( Vector &v , int new_capacity )
         tempdata[i]=v.data[i];
     }
     v.data=nullptr;
-    v.data=&tempdata;
+    v.data= reinterpret_cast<int *>(&tempdata);
     tempdata=nullptr;
 
 
@@ -213,7 +213,7 @@ void resize ( Vector & v , int newsize , int val )
     }
     clear(v);
     v.size=newsize;
-    v.data=&tempdata;
+    v.data=tempdata;
     for (int k = 0; k <sizediff ; k++) {  /// this loop fill the vector with the new value
         c+=k;
         v.data[c]=0;
