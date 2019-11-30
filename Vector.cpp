@@ -133,7 +133,7 @@ namespace cs52
                 return t;
             } else
                 {
-                std::cout<<"reeeeee";
+                std::cout<<"reeee";
             }
         }
         void pop_back()
