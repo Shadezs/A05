@@ -131,8 +131,10 @@ namespace cs52
             {
                 int& t = _data[0];
                 return t;
+            } else
+                {
+                std::cout<<"ree";
             }
-
         }
         void pop_back()
         {
